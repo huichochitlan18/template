@@ -1,0 +1,52 @@
+<mat-sidenav-container class="">
+  <mat-sidenav #sidenav mode="over" class="mat-toolbar-fixed sidenav-toolbar">
+    <mat-toolbar class="sidenav-toolbar" style="position: fixed">
+      <span>menu</span>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+    <app-menu
+      [menu]="menu"
+      class="mat-toolbar-fixed main-content sidenav-toolbar"
+      style="height: -webkit-fill-available !important"
+    ></app-menu>
+  </mat-sidenav>
+
+  <mat-sidenav-container>
+    <mat-toolbar
+      color="primary"
+      class="mat-toolbar-head-fixed toolbar mat-elevation-z6"
+    >
+      <img
+        src="../../../assets/svg/logoipsum.svg"
+        alt="Logotipo"
+        style="object-fit: contain !important"
+        class="filter-white"
+      />
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="spacer"></span>
+
+      <mat-slide-toggle checked (click)="toggleTheme()"></mat-slide-toggle>
+      <button mat-icon-button>
+        @if (themeService.themeSignal() === 'dark'){
+        <mat-icon>bedtime</mat-icon>
+        } @else {
+        <mat-icon>brightness_5</mat-icon>
+        }
+      </button>
+      <button mat-icon-button>
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-container>
+</mat-sidenav-container>
