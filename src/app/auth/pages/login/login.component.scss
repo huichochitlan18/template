@@ -6,3 +6,13 @@
 .login-card {
   width: 90%;
 }
+
+.parent {
+  display: grid;
+  place-items: center;
+  column-gap: 1rem; /* Ajusta el espacio entre las columnas */
+  row-gap: 1rem; /* Ajusta el espacio entre las filas */
+}
+.error {
+  background-color: red; /* Cambiar el color del borde a rojo */
+}

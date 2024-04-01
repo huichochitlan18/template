@@ -1,0 +1,14 @@
+{
+    "usuarios": [
+        {
+            "user": "Usuario",
+            "password": "contrasena1",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkxvZ2luIFVzZXIgMSIsImlhdCI6MTU5NjU0Nzg5MCwiZXhwIjoxNTk2NTUzNDkwfQ.s73F4z38t2_42-34234324234234324234234234"
+        },
+        {
+            "user": "Usuario2",
+            "password": "contrasena2",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwMiIsImFtZSI6IkxvZ2luIFVzZXIgMiIsImlhdCI6MTU5NjU0Nzg5MCwiZXhwIjoxNTk2NTUzNDkwfQ.s73F4z38t2_42-34234324234234324234234234"
+        }
+    ]
+}

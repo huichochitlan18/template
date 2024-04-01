@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
-
 // Light Theme
 $light-theme-primary: mat.define-palette(mat.$indigo-palette);
 $light-theme-accent: mat.define-palette(mat.$purple-palette, A200, A100, A400);

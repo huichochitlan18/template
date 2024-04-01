@@ -16,7 +16,7 @@
     </ng-container>
     <!-- If the item has subMenu show it as accordion-->
     <ng-container *ngIf="item.subMenu?.length! > 0">
-      <mat-expansion-panel [expanded]="item.expanded">
+      <mat-expansion-panel [expanded]="item.expanded" displayMode="flat" class="mat-elevation-z0">
         <mat-expansion-panel-header>
           <mat-panel-title class="d-flex align-items-center">
             <mat-icon [style.color]="item.color" mat-list-icon>
