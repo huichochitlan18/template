@@ -9,15 +9,16 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: 'open' !important;
+  font-family: Proxima Nova, -apple-system, Helvetica Neue, helvetica, roboto,
+    arial, sans-serif;
   font-size: 16px;
 }
 p {
-  font-size: 1.5em; 
+  font-size: 1.5em;
 }
-button{
+button {
   font-size: 1.5em !important;
-  height: 56px !important; 
+  height: 56px !important;
 }
 .spacer {
   flex: 1 1 auto;
