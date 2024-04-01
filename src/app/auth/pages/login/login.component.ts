@@ -5,7 +5,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatRadioModule, MatSelectModule } from '@barrels/material';
 import { FormsService } from '../../../services/utils/forms/forms.service';
-
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -20,12 +20,13 @@ export default class LoginComponent implements OnInit, AfterViewInit {
   private _formBuilder = inject(FormBuilder);
   private _element = inject(ElementRef);
   private _formService = inject(FormsService);
+  private _userService = inject(UserService);
 
   hide = true;
   opciones: string[] = ['Opción 1', 'Opción 2'];
   loginForm = this._formBuilder.group({
-    user: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', Validators.required],
+    user: ['mor_2314', [Validators.required, Validators.minLength(3)]],
+    password: ['83r5^_', Validators.required],
   });
 
   ngOnInit(): void {
@@ -37,6 +38,9 @@ export default class LoginComponent implements OnInit, AfterViewInit {
   onSubmit($event: SubmitEvent): void {
     console.log(this._formService.form);
     console.log($event);
+    if (this._formService.form?.valid) {
+      this._userService.login(this._formService.form);
+    }
   }
   togglePasswordVisibility($event: any): void {
     $event.preventDefault();

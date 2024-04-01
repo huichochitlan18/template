@@ -22,7 +22,7 @@ export class FormsService {
       .pipe(
         debounceTime(500),
         distinctUntilChanged((prev, curr) => {
-          console.log(prev == curr)
+          // console.log(prev == curr)
           return true
         })
       )
@@ -84,10 +84,10 @@ export class FormsService {
   }
 
   private setInvalidControl() {
-    console.log(this.keys);
+    // console.log(this.keys);
     for (const key of this.keys) {
       const control = this.form?.controls[key];
-      console.log(this.form);
+      // console.log(this.form);
       if (control?.status == 'INVALID') {
         this.controlName = key;
         return;
