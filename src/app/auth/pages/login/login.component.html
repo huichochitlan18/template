@@ -7,10 +7,11 @@
       <div class="col-md-6 col-xs-12" style="align-content: center !important">
         <div class="parent">
           <form
-            [formGroup]="loginForm"
+            [formGroup]="loginForm!"
             style="width: 90%"
-            (ngSubmit)="onSubmit($event)"
+            (ngSubmit)="onSubmit()"
             (keydown)="onKeyDown($event)"
+            #loginFormElement
           >
             <p>
               <mat-form-field appearance="outline" style="width: 100%">
@@ -49,8 +50,8 @@
                     hide ? "visibility_off" : "visibility"
                   }}</mat-icon>
                 </button>
-                @if (loginForm.get('password')?.touched &&
-                loginForm.get('password')?.hasError('required')) {
+                @if (loginForm!.get('password')?.touched &&
+                loginForm!.get('password')?.hasError('required')) {
                 <mat-error>{{ "errorMessage" }}</mat-error>
                 }
               </mat-form-field>
@@ -58,6 +59,7 @@
 
             <div style="text-align: center !important">
               <button
+                class="input-size"
                 mat-flat-button
                 color="primary"
                 type="submit"
@@ -67,7 +69,6 @@
               </button>
             </div>
           </form>
-          <!-- <button (click)="test2()">test</button> -->
         </div>
       </div>
       <div class="col-6 d-none d-md-block">

@@ -1,6 +1,5 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { ElementRef, Injectable, signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,28 +7,16 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 export class FormsService {
 
-  public element: ElementRef<HTMLElement> | undefined;
+  public element: ElementRef<HTMLFormElement> | undefined;
   public form: FormGroup | undefined;
-  public keys: string[] = [];
+  public keys = signal<string[]>([]);
   public controlName: string = '';
 
-  init(form: FormGroup, element: ElementRef<HTMLElement>): void {
+  init(form: FormGroup, element: ElementRef<HTMLFormElement>): void {
     this.form = form;
     this.element = element;
-    this.setKeys();
+    this.keys.update(() => Object.keys(this.form!.controls));
     this.setInvalidControl();
-    this.form?.valueChanges
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged((prev, curr) => {
-          // console.log(prev == curr)
-          return true
-        })
-      )
-      .subscribe(x => {
-        console.log(this.controlName);
-        console.log(x);
-      });
   }
 
   onKeyDown($event: KeyboardEvent) {
@@ -54,6 +41,7 @@ export class FormsService {
   }
 
   onFocusEvent($event: FocusEvent) {
+
     const event = $event as unknown as KeyboardEvent;
     const controlName = this.getControlName(event);
     const control = this.form!.get(controlName);
@@ -68,7 +56,6 @@ export class FormsService {
   }
 
   private getControlName($event: KeyboardEvent): string {
-    // const controlName: string = Reflect.get(target.attributes!, 'formcontrolname').value;
     const target = $event.target as HTMLInputElement;
     const controlName: string = target.getAttribute('formcontrolname') || ''
     return controlName;
@@ -84,24 +71,12 @@ export class FormsService {
   }
 
   private setInvalidControl() {
-    // console.log(this.keys);
-    for (const key of this.keys) {
-      const control = this.form?.controls[key];
-      // console.log(this.form);
-      if (control?.status == 'INVALID') {
-        this.controlName = key;
-        return;
-      }
-    }
+    this.controlName = this.keys().find((x: string) => this.form?.controls[x].status == 'INVALID')!;
   }
 
-  static getKeys(form: FormGroup): string[] {
+  public static getKeys(form: FormGroup): string[] {
     const keys = Object.keys(form!.controls);
     return keys;
-  }
-
-  private setKeys(): void {
-    this.keys = Object.keys(this.form!.controls);
   }
 
   dispose(): void {
@@ -110,6 +85,7 @@ export class FormsService {
   }
 }
 //simple curiosidad de angular
+// const controlName: string = Reflect.get(target.attributes!, 'formcontrolname').value;
 // setFocusToControl(controlName: string) {
 // const control = this.loginForm.get(controlName);
 // if (control) {

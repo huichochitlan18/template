@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
 import {
   FormBuilder, FormsModule, ReactiveFormsModule, Validators
 } from '@angular/forms';
 import { MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatRadioModule, MatSelectModule } from '@barrels/material';
 import { FormsService } from '../../../services/utils/forms/forms.service';
-import { UserService } from '../../../services/user/user.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,49 +15,41 @@ import { UserService } from '../../../services/user/user.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export default class LoginComponent implements OnInit, AfterViewInit {
+export default class LoginComponent implements AfterViewInit {
 
   private _formBuilder = inject(FormBuilder);
-  private _element = inject(ElementRef);
-  private _formService = inject(FormsService);
-  private _userService = inject(UserService);
+  private _formLoginService = inject(FormsService);
+  private _authService = inject(AuthService);
 
+  @ViewChild('loginFormElement') loginFormElement!: ElementRef<HTMLFormElement>;
+  
   hide = true;
-  opciones: string[] = ['Opción 1', 'Opción 2'];
   loginForm = this._formBuilder.group({
-    user: ['mor_2314', [Validators.required, Validators.minLength(3)]],
-    password: ['83r5^_', Validators.required],
+    user: ['', [Validators.required, Validators.minLength(3)]],
+    password: ['', Validators.required],
   });
 
-  ngOnInit(): void {
-
-  }
   ngAfterViewInit(): void {
-    this._formService.init(this.loginForm, this._element);
+    this._formLoginService.init(this.loginForm!, this.loginFormElement);
   }
-  onSubmit($event: SubmitEvent): void {
-    console.log(this._formService.form);
-    console.log($event);
-    if (this._formService.form?.valid) {
-      this._userService.login(this._formService.form);
+
+  onSubmit(): void {
+    if (this._formLoginService.form?.valid) {
+      this._authService.login(this._formLoginService.form);
     }
   }
+
   togglePasswordVisibility($event: any): void {
     $event.preventDefault();
     this.hide = !this.hide;
   }
 
-  focus($event: FocusEvent) {
-    this._formService.onFocusEvent($event);
+  focus($event: FocusEvent): void {
+    this._formLoginService.onFocusEvent($event);
   }
 
-  onKeyDown($event: KeyboardEvent) {
-    this._formService.onKeyDown($event);
+  onKeyDown($event: KeyboardEvent): void {
+    this._formLoginService.onKeyDown($event);
   }
-
-  test2() {
-    this.loginForm!.get('user')!.markAsUntouched();
-  }
-
 
 }

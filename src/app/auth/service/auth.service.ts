@@ -8,7 +8,7 @@ const API = environment.api;
   providedIn: 'root'
 })
 
-export class UserService {
+export class AuthService {
 
   private _http = inject(HttpClient)
   constructor() { }

@@ -9,39 +9,46 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: Proxima Nova, -apple-system, Helvetica Neue, helvetica, roboto,
-    arial, sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 16px;
 }
+
 p {
   font-size: 1.5em;
 }
-button {
+
+button.input-size {
   font-size: 1.5em !important;
   height: 56px !important;
 }
+
 .spacer {
   flex: 1 1 auto;
 }
+
 .navbar-header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   padding: 4px 16px;
 }
+
 .mat-toolbar-head-fixed {
   position: fixed;
   z-index: 1;
 }
+
 .mat-toolbar-fixed {
   position: fixed;
   z-index: 1;
 }
+
 .toolbar {
   background-color: rgba(255, 255, 255, 0.253);
   backdrop-filter: blur(15px);
   color: rgb(32, 32, 32);
 }
+
 .main-content {
   margin-top: var(--mat-toolbar-standard-height) !important;
   overflow-y: auto;
